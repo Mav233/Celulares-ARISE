@@ -1,0 +1,106 @@
+.item-card {
+    background: linear-gradient(145deg, #1f1f2e, #3e3e57);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(255, 0, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+    /* Para que ocupe todo el espacio del grid */
+    height: 100%;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+.item-card:hover {
+    transform: scale(1.05);
+}
+
+.item-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #121212;
+}
+
+.item-image img {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px #ff00ff);
+}
+
+.item-content {
+    flex: 1;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.item-title {
+    font-size: 1.3rem;
+    margin: 0 0 8px 0;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.item-description {
+    flex-grow: 1;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px #ff00ff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.item-price {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 0 0 12px #ff00ff;
+}
+
+.item-stock,
+.item-category {
+    font-size: 0.8rem;
+    color: #ccc;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+/* Agregamos un efecto de fondo neón pulsante */
+.item-card::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+    animation: neonPulse 2s infinite ease-in-out;
+    z-index: -1;
+}
+
+@keyframes neonPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+    }
+
+    50% {
+        box-shadow: 0 0 35px #ff00ff, 0 0 70px #ff00ff;
+    }
+}

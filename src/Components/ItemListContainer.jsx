@@ -1,36 +1,57 @@
-//Falta avanzar para impletancion, idea en proceso.
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import db from '../FireBase/firebaseConfig.js';;
+import ItemList from './ItemList.jsx';
+import Loading from './Loading.jsx';
+import '../styles/ItemListContainer.css';
 
 
-// const ItemListContainer = ({ greeting }) => {
-//     const [products, setProducts] = useState([]);
+const ItemListContainer = () => {
+    const { categoriaId } = useParams();
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-//     useEffect(() => {
+    useEffect(() => {
+        const fetchProductos = async () => {
+            setLoading(true);
+            try {
+                const productosRef = collection(db, 'celulares');
+                let q = productosRef;
 
-//         const mockProducts = [
-//             { id: 1, name: 'iPhone 15 Pro', price: 1200 },
-//             { id: 2, name: 'Samsung Galaxy S23', price: 1100 },
-//             { id: 3, name: 'Xiaomi 13 Pro', price: 900 },
-//             { id: 4, name: 'Motorola Edge 40', price: 850 }
-//         ];
+                if (categoriaId) {
+                    q = query(productosRef, where('category', '==', capitalize(categoriaId)));
+                }
 
-//         setTimeout(() => setProducts(mockProducts), 1000);
-//     }, []);
+                const querySnapshot = await getDocs(q);
+                const productosData = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
 
-//     return (
-//         <div>
-//             <h1>{greeting}</h1>
-//             <ul>
-//                 {products.length > 0 ? (
-//                     products.map(product => (
-//                         <li key={product.id}>{product.name} - ${product.price}</li>
-//                     ))
-//                 ) : (
-//                     <p>Cargando productos...</p>
-//                 )}
-//             </ul>
-//         </div>
-//     );
-// };
+                setProducts(productosData);
+            } catch (error) {
+                console.error('Error al obtener productos desde Firebase:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-// export default ItemListContainer;
+        fetchProductos();
+    }, [categoriaId]);
+
+    const capitalize = (str) =>
+        str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+    return (
+        <div className="ItemListContainer">
+            {loading ? (
+                <Loading />
+            ) : (
+                <ItemList products={products} />
+            )}
+        </div>
+    );
+};
+
+export default ItemListContainer;

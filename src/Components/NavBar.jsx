@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 import { MobileFilled, AppstoreOutlined, RocketFilled, CustomerServiceOutlined } from '@ant-design/icons';
 
 import CartWidget from './CartWidget';
-import '../Components/styles.css';
+import '../styles/styles.css';
 
 const NavBar = () => {
     const [openKeys, setOpenKeys] = useState([]);

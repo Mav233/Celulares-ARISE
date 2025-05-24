@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/loandig.css';
+import '../styles/styles.css';
 
 const Loading = () => {
     return (

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import '../styles/Item.css';
+import '../styles/styles.css';
 
 const Item = ({ id, name, description, price }) => {
     const footer = (

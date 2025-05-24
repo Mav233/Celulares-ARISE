@@ -4,7 +4,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import db from '../FireBase/firebaseConfig.js';;
 import ItemList from './ItemList.jsx';
 import Loading from './Loading.jsx';
-import '../styles/ItemListContainer.css';
+import '../styles/styles.css';
 
 
 const ItemListContainer = () => {

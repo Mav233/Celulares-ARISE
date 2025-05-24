@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAtjfb6xxdR_Pt-z5tne-fJnH_DBtC-ri8",
-    authDomain: "celulares-arise.firebaseapp.com",
-    projectId: "celulares-arise",
-    storageBucket: "celulares-arise.firebasestorage.app",
-    messagingSenderId: "83484515283",
-    appId: "1:83484515283:web:072a21cd7e966028de6d26"
+    apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

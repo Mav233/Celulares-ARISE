@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import '../styles/styles.css';
 
-const ItemCount = ({ stock, initial = 1, onQuantityChange }) => {
+const ItemCount = ({ stock, initial = 1, onQuantityChange = () => { } }) => {
     const [count, setCount] = useState(initial);
 
     const increase = () => {
@@ -20,10 +21,10 @@ const ItemCount = ({ stock, initial = 1, onQuantityChange }) => {
     };
 
     return (
-        <div>
-            <button onClick={decrease}>-</button>
-            <span style={{ margin: '0 1rem' }}>{count}</span>
-            <button onClick={increase}>+</button>
+        <div className="item-count-container">
+            <button className="neon-button" onClick={decrease}>-</button>
+            <span className="item-count-display">{count}</span>
+            <button className="neon-button" onClick={increase}>+</button>
         </div>
     );
 };

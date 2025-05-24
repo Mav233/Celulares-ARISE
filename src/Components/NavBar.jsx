@@ -6,6 +6,8 @@ import { MobileFilled, AppstoreOutlined, RocketFilled, CustomerServiceOutlined }
 
 import CartWidget from './CartWidget';
 import '../styles/styles.css';
+import logo from '../assets/arise.jpeg';
+
 
 const NavBar = () => {
     const [openKeys, setOpenKeys] = useState([]);
@@ -101,15 +103,22 @@ const NavBar = () => {
 
     return (
         <div className="navbar">
-            <span>CELULARES ARISE</span>
+            <div className="navbar-logo-title" onClick={() => navigate('/')}>
+                <img src={logo} alt="Logo" className="navbar-logo" />
+
+                <span className="navbar-title">CELULARES ARISE</span>
+            </div>
+
             <Menu
                 mode="horizontal"
                 items={items}
                 onClick={handleMenuClick}
             />
+
             <CartWidget />
         </div>
     );
+
 };
 
 export default NavBar;

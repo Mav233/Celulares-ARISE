@@ -1,27 +1,15 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/ShoppingCartContext";
 import { useNavigate } from "react-router-dom";
+import { Button } from "primereact/button";
+import { Divider } from "primereact/divider";
+import { Card } from "primereact/card";
 
 const CartPage = () => {
-    const {
-        cart,
-        updateQuantity,
-        removeFromCart,
-        clearCart,
-    } = useContext(CartContext);
-
+    const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
     const navigate = useNavigate();
 
-    const handleFinishPurchase = () => {
-        clearCart();
-        alert("¡Compra realizada con éxito!");
-        navigate("/");
-    };
-
-    const total = cart.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-    );
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat("es-AR", {
@@ -32,60 +20,64 @@ const CartPage = () => {
     };
 
     return (
-        <div style={{ padding: "1rem" }}>
-            <h1>Carrito de Compras</h1>
+        <div className="cart-page">
+            <h1 className="cart-title">Carrito de Compras</h1>
+
             {cart.length === 0 ? (
-                <p>Tu carrito está vacío.</p>
+                <p className="cart-empty-message">Tu carrito está vacío.</p>
             ) : (
                 <>
-                    <ul>
+                    <ul className="cart-list">
                         {cart.map((item) => (
-                            <li
-                                key={item.id}
-                                style={{
-                                    marginBottom: "1rem",
-                                    borderBottom: "1px solid #ccc",
-                                }}
-                            >
-                                <h3>{item.title}</h3>
-                                <p>Precio: {formatPrice(item.price)}</p>
-                                <p>
-                                    Cantidad: {item.quantity}{" "}
-                                    <button
-                                        onClick={() =>
-                                            updateQuantity(
-                                                item.id,
-                                                item.quantity + 1
-                                            )
-                                        }
-                                    >
-                                        +
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            updateQuantity(
-                                                item.id,
-                                                item.quantity - 1
-                                            )
-                                        }
-                                    >
-                                        -
-                                    </button>
-                                </p>
-                                <p>
-                                    <strong>Subtotal:</strong>{" "}
-                                    {formatPrice(item.price * item.quantity)}
-                                </p>
-                                <button onClick={() => removeFromCart(item.id)}>
-                                    Eliminar
-                                </button>
+                            <li key={item.id} className="cart-item">
+                                <Card className="cart-item-card">
+                                    <h3 className="item-title">{item.title}</h3>
+                                    <p className="item-price">Precio: {formatPrice(item.price)}</p>
+
+                                    <div className="item-quantity">
+                                        <span>Cantidad: {item.quantity}</span>{" "}
+                                        <Button
+                                            icon="pi pi-plus"
+                                            rounded
+                                            text
+                                            className="quantity-btn"
+                                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                        />
+                                        <Button
+                                            icon="pi pi-minus"
+                                            rounded
+                                            text
+                                            className="quantity-btn"
+                                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                        />
+                                    </div>
+
+                                    <p className="item-subtotal">
+                                        <strong>Subtotal:</strong> {formatPrice(item.price * item.quantity)}
+                                    </p>
+
+                                    <Button
+                                        label="Eliminar"
+                                        icon="pi pi-trash"
+                                        severity="danger"
+                                        className="remove-btn"
+                                        onClick={() => removeFromCart(item.id)}
+                                    />
+                                </Card>
                             </li>
                         ))}
                     </ul>
-                    <h3>Total: {formatPrice(total)}</h3>
-                    <button onClick={handleFinishPurchase}>
-                        Finalizar Compra
-                    </button>
+
+                    <Divider />
+
+                    <h3 className="cart-total">Total: {formatPrice(total)}</h3>
+
+                    <Button
+                        label="Finalizar Compra"
+                        icon="pi pi-check"
+                        className="finish-btn"
+                        onClick={() => navigate("/checkout")}
+                    />
                 </>
             )}
         </div>

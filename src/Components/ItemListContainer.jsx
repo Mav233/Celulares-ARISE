@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import db from '../FireBase/firebaseConfig.js';;
+import db from '../FireBase/firebaseConfig.js';
 import ItemList from './ItemList.jsx';
 import Loading from './Loading.jsx';
 import '../styles/styles.css';
-
 
 const ItemListContainer = () => {
     const { categoriaId } = useParams();
@@ -44,12 +43,8 @@ const ItemListContainer = () => {
         str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
     return (
-        <div className="ItemListContainer">
-            {loading ? (
-                <Loading />
-            ) : (
-                <ItemList products={products} />
-            )}
+        <div className="item-list-container">
+            {loading ? <Loading /> : <ItemList products={products} />}
         </div>
     );
 };

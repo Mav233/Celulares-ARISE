@@ -42,12 +42,12 @@ export const ShippingCartProvider = ({ children }) => {
                 if (item.id === productId) {
                     const newQuantity = Math.max(0, quantity);
                     if (newQuantity === 0) {
-                        return null; // luego será filtrado
+                        return null;
                     }
                     return { ...item, quantity: newQuantity };
                 }
                 return item;
-            }).filter(Boolean); // elimina nulls
+            }).filter(Boolean);
         });
     };
 

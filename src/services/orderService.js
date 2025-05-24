@@ -1,6 +1,6 @@
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-export const createOrder = async (orderData) => {
+export const cartOrder = async (orderData) => {
     try {
         const db = getFirestore();
         const ordersCollection = collection(db, "orders");
@@ -15,4 +15,4 @@ export const createOrder = async (orderData) => {
         console.error("Error creating order:", error);
         throw error;
     }
-}
+};

@@ -4,7 +4,7 @@ import '../styles/styles.css';
 
 const ItemList = ({ products }) => {
     return (
-        <div className="itemList">
+        <div className="item-list">
             {products.length === 0 ? (
                 <p className="no-products">No hay productos disponibles en esta categoría.</p>
             ) : (

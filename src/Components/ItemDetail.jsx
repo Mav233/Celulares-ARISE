@@ -6,6 +6,7 @@ import ItemCount from './ItemCount.jsx';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import '../styles/styles.css';
 
 const ItemDetail = ({ id, title, description, price, stock }) => {
     const [quantity, setQuantity] = useState(1);
@@ -13,15 +14,10 @@ const ItemDetail = ({ id, title, description, price, stock }) => {
 
     const handleAddToCart = () => {
         if (quantity > 0) {
-            addToCart({
-                id,
-                title,
-                price,
-                stock,
-                quantity
-            });
+            addToCart({ id, title, price, stock, quantity });
         }
     };
+
     const formatPrice = (price) => {
         return new Intl.NumberFormat("es-AR", {
             style: "currency",
@@ -30,27 +26,22 @@ const ItemDetail = ({ id, title, description, price, stock }) => {
         }).format(price);
     };
 
-    // ...
-
-    <p><strong>Precio:</strong> {formatPrice(price)}</p>
-
-
     return (
-        <Card title={title}>
-            <p>{description}</p>
-            <p><strong>Precio:</strong> ${price}</p>
+        <div className="item-detail-container">
+            <Card title={title} className="item-detail-card">
+                <p className="item-detail-description">{description}</p>
+                <p className="item-detail-price"><strong>Precio:</strong> {formatPrice(price)}</p>
 
-            <ItemCount stock={stock} initial={1} onQuantityChange={setQuantity} />
+                <ItemCount stock={stock} initial={1} onQuantityChange={setQuantity} />
 
-            <Button
-                label="Agregar al carrito"
-                icon="pi pi-shopping-cart"
-                severity="success"
-                outlined
-                onClick={handleAddToCart}
-            />
-        </Card>
-
+                <Button
+                    label="Agregar al carrito"
+                    icon="pi pi-shopping-cart"
+                    className="item-detail-button"
+                    onClick={handleAddToCart}
+                />
+            </Card>
+        </div>
     );
 };
 
